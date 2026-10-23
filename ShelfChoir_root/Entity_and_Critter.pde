@@ -1,3 +1,4 @@
+// Entity class
 class Entity {
   int posX;
   int posY;
@@ -25,13 +26,13 @@ class Entity {
 
   void display() {
   }
-  
-  
-  
+
   int[] getLocation() {
     return new int[] {posX, posY};
   }
 }
+
+// Critter class
 class Critter extends Entity {
   SoundFile[] voices = allVoices;
   int voiceIndex = -1;
@@ -40,7 +41,7 @@ class Critter extends Entity {
     super(critterName, critterX, critterY, critterW, critterH);
     setVoice(critterVoice);
   }
-  
+
   // Critter class voice manager
   void setVoice(int index) {
     if (voices != null && index >= 0 && index < voices.length) {
@@ -49,7 +50,7 @@ class Critter extends Entity {
       println("Critter " + name + ": voice " + index + " doesn't exist");
     }
   }
-  
+
   SoundFile getVoice() {
     if (voiceIndex < 0) return null;
     return voices[voiceIndex];

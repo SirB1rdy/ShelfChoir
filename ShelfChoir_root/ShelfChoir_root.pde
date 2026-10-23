@@ -8,7 +8,9 @@ void setup() {
   tbx2 = new Toolbox(100, 10, true, items);
 }
 
+
 void draw() {
+  background(255);
   tbx1.display();
   tbx2.display();
 }

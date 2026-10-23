@@ -3,6 +3,7 @@ Interactable[] items = {new Interactable(), new Interactable(), new Interactable
 
 void setup() {
   size(1000, 750);
+  loadAssets();
   tbx1 = new Toolbox(10, 10, false, items);
 }
 

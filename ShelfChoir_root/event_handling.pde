@@ -2,7 +2,7 @@ void mouseClicked() {
   tbx1.update(mouseX, mouseY);
 }
 
-void mouseDragged() {
+void mouseDragged() { //-- mouse cursor can escape bounding box for drag: GitHub issue #9
   for (int i = 0; i < items.length; i++) {
     if (items[i].isColliding(mouseX, mouseY)) {
       if (selectedItem == -1 || selectedItem == i) {

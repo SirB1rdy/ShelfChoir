@@ -12,14 +12,14 @@ class Toolbox {
 
   }
 
-
-
   Toolbox(int inX, int inY, boolean inO, Interactable[] inI) {
     posX = inX;
     posY = inY;
     opened = inO;
     items = inI;
   }
+
+
 
   void display() {
     fill(#00FF00);
@@ -42,12 +42,11 @@ class Toolbox {
       opened = !opened;
       for (int i = 0; i < items.length; i++) {
         items[i].setDragged(false);
+        items[i].update(0, 0);
       }
     }
   }
 
-  void returnItem() {
-  }
 
 
   boolean buttonCollision(int checkX, int checkY) {

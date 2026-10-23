@@ -9,7 +9,10 @@ class Toolbox {
 
   Toolbox(Interactable[] inI) {
     items = inI;
+
   }
+
+
 
   Toolbox(int inX, int inY, boolean inO, Interactable[] inI) {
     posX = inX;
@@ -26,7 +29,9 @@ class Toolbox {
       rect(posX, posY+width/30+10, width/10, 4*height/5);
 
       for (int i = 0; i < items.length; i++) {
-        items[i].update(posX+5, posY+width/30+10 +5 +(i+1)*((4*height/5)/(items.length+1)));
+        if (!items[i].getDragged()) {
+          items[i].update(posX+5, posY+width/30+10 +5 +(i+1)*((4*height/5)/(items.length+1)));
+        }
         items[i].display();
       }
     }
@@ -35,7 +40,13 @@ class Toolbox {
   void update(int checkX, int checkY) {
     if (buttonCollision(checkX, checkY)) {
       opened = !opened;
+      for (int i = 0; i < items.length; i++) {
+        items[i].setDragged(false);
+      }
     }
+  }
+
+  void returnItem() {
   }
 
 

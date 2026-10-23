@@ -1,5 +1,7 @@
+int selectedItem = -1;
+
 Toolbox tbx1;
-Interactable[] items = {new Interactable(), new Interactable(), new Interactable()};
+Interactable[] items = {new Interactable(), new Interactable(), new Interactable(), new Interactable(), new Interactable()};
 
 void setup() {
   size(1000, 750);

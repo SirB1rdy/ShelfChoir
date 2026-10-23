@@ -9,6 +9,11 @@ Interactable[] items = {
   new Interactable("")
 };
 
+Critter[] critters = {
+  new Critter("Pat", 200, 380, 30, 35, 2),
+  new Critter("Mat", 250, 380, 25, 45, 0)
+};
+
 void setup() {
   size(1000, 750);
   loadAssets();
@@ -18,7 +23,15 @@ void setup() {
 void draw() {
   background(255);
   tbx1.display();
+  updateCritters();
 }
 
 void runInteraction(String objectName, String interactableName) {
+}
+
+void updateCritters() {
+  for (int i = 0; i < critters.length; i++){
+    //critters[i].update(200, 380);
+    critters[i].display();
+  }
 }

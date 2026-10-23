@@ -25,6 +25,12 @@ class Entity {
 
   void display() {
   }
+  
+  
+  
+  int[] getLocation() {
+    return new int[] {posX, posY};
+  }
 }
 class Critter extends Entity {
   SoundFile[] voices = allVoices;

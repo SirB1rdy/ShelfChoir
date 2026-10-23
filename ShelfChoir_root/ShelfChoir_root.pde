@@ -11,3 +11,6 @@ void draw() {
   background(255);
   tbx1.display();
 }
+
+void runInteraction(String objectName, String interactableName) {
+}

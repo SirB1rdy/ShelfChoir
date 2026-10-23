@@ -6,7 +6,6 @@ void setup() {
   tbx1 = new Toolbox(10, 10, false, items);
 }
 
-
 void draw() {
   background(255);
   tbx1.display();

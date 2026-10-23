@@ -1,7 +1,7 @@
 // container for tools
 class Toolbox {
-  int x = 10;
-  int y = 10;
+  int posX = 10;
+  int posY = 10;
 
   boolean opened = false;
 
@@ -12,21 +12,21 @@ class Toolbox {
   }
 
   Toolbox(int inX, int inY, boolean inO, Interactable[] inI) {
-    x = inX;
-    y = inY;
+    posX = inX;
+    posY = inY;
     opened = inO;
     items = inI;
   }
 
   void display() {
     fill(#00FF00);
-    rect(x, y, width/30, width/30);
+    rect(posX, posY, width/30, width/30);
     if (opened) {
       fill(0);
-      rect(x, y+width/30+10, width/10, 4*height/5);
+      rect(posX, posY+width/30+10, width/10, 4*height/5);
 
       for (int i = 0; i < items.length; i++) {
-        items[i].update(x+5, y+width/30+10 +5 +(i+1)*((4*height/5)/(items.length+1)));
+        items[i].update(posX+5, posY+width/30+10 +5 +(i+1)*((4*height/5)/(items.length+1)));
         items[i].display();
       }
     }
@@ -40,7 +40,7 @@ class Toolbox {
 
 
   boolean buttonCollision(int checkX, int checkY) {
-    if (checkX > x && checkX < x + width/30 && checkY > y && checkY < y + width/30) {
+    if (checkX > posX && checkX < posX + width/30 && checkY > posY && checkY < posY + width/30) {
       return true;
     } else {
       return false;

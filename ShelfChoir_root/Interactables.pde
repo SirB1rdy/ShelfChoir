@@ -4,8 +4,8 @@
 // animate
 
 class Interactable {
-  int x;
-  int y;
+  int posX;
+  int posY;
   String interaction;
   
   
@@ -14,21 +14,21 @@ class Interactable {
   }
   
   void update(int newX, int newY) {
-    x = newX;
-    y = newY;
+    posX = newX;
+    posY = newY;
   }
   
   void display() {
     fill (#FF0000);
-    rect(x, y, 25, 25);
+    rect(posX, posY, 25, 25);
   }
   
   int[] getLocation() {
-    return new int[] {x, y};
+    return new int[] {posX, posY};
   }
   
   boolean isTouching(int checkX, int checkY) {
-    if (checkX > x && checkX < x + 25 && checkY > y && checkY < y + 25) {
+    if (checkX > posX && checkX < posX + 25 && checkY > posY && checkY < posY + 25) {
       return true;
     } else {
       return false;

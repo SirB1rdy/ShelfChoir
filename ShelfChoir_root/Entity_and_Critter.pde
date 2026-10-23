@@ -25,6 +25,7 @@ class Entity {
   }
 
   void display() {
+    rect(posX, posY, sizeW, -sizeH); // -sizeH so floor is anchor point, is easier for placement
   }
 
   int[] getLocation() {
@@ -37,9 +38,13 @@ class Critter extends Entity {
   SoundFile[] voices = allVoices;
   int voiceIndex = -1;
 
-  Critter(String critterName, int critterX, int critterY, int critterW, int critterH, SoundFile[] critterVoices, int critterVoice) { // full constructor
+  Critter(String critterName, int critterX, int critterY, int critterW, int critterH, int critterVoice) { // full constructor
     super(critterName, critterX, critterY, critterW, critterH);
     setVoice(critterVoice);
+  }
+  @Override
+    void update(int newX, int newY) {
+    super.update(newX, newY);
   }
 
   // Critter class voice manager

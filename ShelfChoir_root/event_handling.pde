@@ -3,13 +3,16 @@ void mouseClicked() {
 }
 
 void mouseDragged() {
+  if (selectedItem != -1) {
+    items[selectedItem].update(mouseX, mouseY);
+  }
+}
+
+void mousePressed() {
   for (int i = 0; i < items.length; i++) {
-    if (items[i].isColliding(mouseX, mouseY)) {
-      if (selectedItem == -1 || selectedItem == i) {
-        items[i].setDragged(true);
-        items[i].update(mouseX, mouseY);
-        selectedItem = i;
-      }
+    if (items[i].isColliding(mouseX, mouseY) && selectedItem == -1) {
+      selectedItem = i;
+      items[i].setDragged(true);
     }
   }
 }

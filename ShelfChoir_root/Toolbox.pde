@@ -1,4 +1,5 @@
 // container for tools
+// Toolbox class
 class Toolbox {
   int posX = 10;
   int posY = 10;
@@ -18,8 +19,6 @@ class Toolbox {
     opened = inO;
     items = inI;
   }
-
-
 
   void display() {
     fill(#00FF00);

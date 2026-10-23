@@ -1,5 +1,3 @@
-// load all sprites, sounds, etc. here
-
 import processing.sound.*;
 
 SoundFile[] allVoices; // global voices array
@@ -14,15 +12,16 @@ void loadVoices() {
   String[] voiceFiles = { // append to add new sprites
     "sounds/voices/voice_01.mp3",
     "sounds/voices/voice_02.mp3",
-    "sounds/voices/voice_03.mp3"
+    "sounds/voices/voice_03.mp3",
+    "sounds/voices/voice_04.mp3"
   };
   allVoices = new SoundFile[voiceFiles.length];
   for (int i = 0; i < voiceFiles.length; i++) {
     allVoices[i] = new SoundFile(this, voiceFiles[i]);
     if (allVoices[i] == null) {
-      println("Missing voice: " + voiceFiles[i]);
+      println("Missing voice: " + voiceFiles[i]); //-- Never prints: GitHub issue #10
     } else {
-      println("loaded voice");
+      println("loaded voice: " + voiceFiles[i]);
     }
   }
 }
@@ -38,7 +37,7 @@ void loadSprites() { // sprite loader
     if (allSprites[i] == null) {
       println("Missing sprite: " + spriteFiles[i]);
     } else {
-      println("loaded sprite");
+      println("loaded sprite: " + spriteFiles[i]);
     }
   }
 }

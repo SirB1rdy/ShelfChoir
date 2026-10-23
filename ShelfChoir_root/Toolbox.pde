@@ -1,4 +1,4 @@
-// container for tools
+// container for interactables
 // Toolbox class
 class Toolbox {
   int posX = 10;

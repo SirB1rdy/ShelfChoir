@@ -1,7 +1,15 @@
+Toolbox tbx1;
+Interactable[] items = {new Interactable(), new Interactable(), new Interactable()};
+
 void setup() {
   size(1000, 750);
-  Object[] objects = new Object[5]; // all objects that interact go in here
+  tbx1 = new Toolbox(10, 10, false, items);
 }
 
-void runInteraction(String objectName, String interactableName) { // run interaction based on what interactable touches which critter
+void draw() {
+  background(255);
+  tbx1.display();
+}
+
+void runInteraction(String objectName, String interactableName) {
 }

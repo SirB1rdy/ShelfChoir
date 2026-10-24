@@ -26,6 +26,9 @@ class Interactable {
     if (dragged) {
       posX = newX - round(sizeW/2);
       posY = newY - round(sizeH/2);
+    } else if ((newX == tbx1.getMenuLocation()[0] + 5) && (newY == tbx1.getMenuLocation()[1] + 5)) { 
+      posX = newX;
+      posY = newY;
     } else {
       posX = round(lerp(posX, newX, constrain((frameCount-timeReleased)/120.0, 0.0, 1.0)));
       posY = round(lerp(posY, newY, constrain((frameCount-timeReleased)/120.0, 0.0, 1.0)));

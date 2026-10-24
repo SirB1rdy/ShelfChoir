@@ -10,7 +10,6 @@ class Toolbox {
 
   Toolbox(Interactable[] inI) {
     items = inI;
-
   }
 
   Toolbox(int inX, int inY, boolean inO, Interactable[] inI) {
@@ -41,7 +40,8 @@ class Toolbox {
       opened = !opened;
       for (int i = 0; i < items.length; i++) {
         items[i].setDragged(false);
-        items[i].update(0, 0);
+        items[i].setReleased(frameCount);
+        items[i].update(posX+5, posY+width/30+10+5);
       }
     }
   }
@@ -54,5 +54,13 @@ class Toolbox {
     } else {
       return false;
     }
+  }
+  
+  int[] getButtonLocation() {
+    return new int[] {posX, posY};
+  }
+  
+  int[] getMenuLocation() {
+    return new int[] {posX, posY+width/30+10};
   }
 }

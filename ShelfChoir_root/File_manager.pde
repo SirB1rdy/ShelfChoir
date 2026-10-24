@@ -18,10 +18,17 @@ void loadVoices() {
   allVoices = new SoundFile[voiceFiles.length];
   for (int i = 0; i < voiceFiles.length; i++) {
     allVoices[i] = new SoundFile(this, voiceFiles[i]);
-    if (allVoices[i] == null) {
-      println("Missing voice: " + voiceFiles[i]); //-- Never prints: GitHub issue #10
-    } else {
-      println("loaded voice: " + voiceFiles[i]);
+
+    boolean fileFound = true;
+    try {
+      log("" + allVoices[i].frames());
+    } catch (NullPointerException e) {
+      log("Missing voice: " + voiceFiles[i]);
+      fileFound = false;
+    } 
+    
+    if (fileFound) {
+      log("loaded voice: " + voiceFiles[i]);
     }
   }
 }

@@ -11,6 +11,7 @@ class Interactable {
   int sizeW = 25;
   int sizeH = 25;
 
+  // field which indicates when item was let go from drag for smoother lerp
   int timeReleased = 0;
   String interaction;
   boolean dragged = false;
@@ -20,12 +21,17 @@ class Interactable {
   }
 
   void update(int newX, int newY) {
+    // when dragged, the parameters are counted as the middle of the item so the position formula reflects that accordingly
     if (dragged) {
       posX = newX - round(sizeW/2);
       posY = newY - round(sizeH/2);
-    } else if ((newX == tbx1.getMenuLocation()[0] + 5) && (newY == tbx1.getMenuLocation()[1] + 5)) { 
+
+      // if the location being set is the menu location no need for lerping, it just goes there immediately to make opening the menu again smoother
+    } else if ((newX == tbx1.getMenuLocation()[0] + 5) && (newY == tbx1.getMenuLocation()[1] + 5)) {
       posX = newX;
       posY = newY;
+
+      // any other case (so just when being drawn in already open menu or being let go from drag) the item smoothly transitions to it's location in the menu
     } else {
       posX = round(lerp(posX, newX, constrain((frameCount-timeReleased)/120.0, 0.0, 1.0)));
       posY = round(lerp(posY, newY, constrain((frameCount-timeReleased)/120.0, 0.0, 1.0)));
@@ -57,8 +63,7 @@ class Interactable {
 
 
 
-
-  // this method is primarily for handling if the interactable is touching an item, NOT for touching user mouse
+  // returns if certain point is within a square hitbox around the item
   boolean isColliding(int checkX, int checkY) {
     if (checkX >= posX && checkX <= posX + sizeW && checkY >= posY && checkY <= posY + sizeH) {
       return true;
@@ -67,22 +72,3 @@ class Interactable {
     }
   }
 }
-
-
-
-// this method is primarily for handling touching user mouse, NOT for if the interactable is touching an item
-//int touchingInteractable() {
-//  boolean[] touchingIndex = new boolean[items.length]; // start with an array of all items we are touching with the mouse, from which we pick the last element that we are actually touching (always topmost one)
-
-//  for (int i = 0; i < items.length; i++) {
-//    if (checkX > posX && checkX < posX + 25 && checkY > posY && checkY < posY + 25) { //Look if dist mouse to bird body <= 0
-//      touchingIndex[i] = true;
-//    }
-//  }
-//  for (int i = touchingIndex.length - 1; i >= 0; i--) {
-//    if (touchingIndex[i]) {
-//      return Objects.name;
-//    }
-//  }
-//  return -1;
-//}

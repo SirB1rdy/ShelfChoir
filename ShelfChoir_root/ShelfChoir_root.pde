@@ -39,3 +39,12 @@ void updateCritters() {
     critters[i].speak();
   }
 }
+
+void log(String toLog) {
+  println("[" + frameCount/60 + "s since start | Frame " + frameCount +"] " + toLog);
+}
+
+
+void runInteraction(String objectName, String interactableName) {
+  
+}

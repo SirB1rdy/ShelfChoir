@@ -33,9 +33,9 @@ void draw() {
 
 void updateCritters() {
   for (int i = 0; i < critters.length; i++) {
-    //critters[i].update(200, 380);
+    //critters[i].update(200, 380); // update location
     critters[i].display();
-    critters[i].speak();
+    //critters[i].speak(); // code disabled
   }
 }
 

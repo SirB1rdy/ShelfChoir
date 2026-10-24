@@ -40,11 +40,16 @@ void updateCritters() {
   }
 }
 
+// log function for clear debug printing
 void log(String toLog) {
   println("[" + frameCount/60 + "s since start | Frame " + frameCount +"] " + toLog);
 }
 
 
 void runInteraction(String objectName, String interactableName) {
-  
+  for (int i = 0; i < items.length; i++) {
+    for (int j = 0; j < critters.length; i++) {}
+      
+    
+  }
 }

@@ -30,7 +30,7 @@ class Entity {
   }
 
   int[] getLocation() {
-    return new int[] {posX, posY};
+    return new int[] {posX, posY, sizeW, sizeH};
   }
 }
 

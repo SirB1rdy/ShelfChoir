@@ -3,10 +3,12 @@
 // change sprites
 // animate
 
+// Interactable class
 class Interactable {
+  String name = "";
+
   int posX;
   int posY;
-
 
   int sizeW = 25;
   int sizeH = 25;
@@ -17,7 +19,8 @@ class Interactable {
   boolean dragged = false;
 
 
-  Interactable () {
+  Interactable (String interactableName) {
+    name = interactableName;
   }
 
   void update(int newX, int newY) {
@@ -37,10 +40,17 @@ class Interactable {
       posY = round(lerp(posY, newY, constrain((frameCount-timeReleased)/120.0, 0.0, 1.0)));
     }
   }
+  void debugText() {
+    fill(#FF0000);
+    textAlign(CENTER, TOP);
+    textSize(12);
+    text(name, posX + sizeW, posY - 15); // position it top right of box
+  }
 
   void display() {
     fill (#FF0000);
     rect(posX, posY, sizeW, sizeH);
+    debugText(); // render text with interactable object's name
   }
 
 

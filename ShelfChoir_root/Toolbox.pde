@@ -1,4 +1,5 @@
-// container for tools
+// container for interactables
+// Toolbox class
 class Toolbox {
   int posX = 10;
   int posY = 10;
@@ -32,6 +33,7 @@ class Toolbox {
       fill(#00FF00);
       rect(posX, posY, width/30, width/30);
     }
+
     if (opened) {
       fill(0);
       rect(posX, posY+width/30+10, width/10, 4*height/5);

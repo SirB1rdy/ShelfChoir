@@ -20,9 +20,14 @@ class Toolbox {
 
 
 
-  void display() {
-    fill(#00FF00);
-    rect(posX, posY, width/30, width/30);
+  void display(int checkX, int checkY) {
+    if (buttonCollision(checkX, checkY)) {
+      fill(#008000);
+      rect(posX, posY, width/30, width/30);
+    } else {
+      fill(#00FF00);
+      rect(posX, posY, width/30, width/30);
+    }
     if (opened) {
       fill(0);
       rect(posX, posY+width/30+10, width/10, 4*height/5);
@@ -56,11 +61,11 @@ class Toolbox {
       return false;
     }
   }
-  
+
   int[] getButtonLocation() {
     return new int[] {posX, posY};
   }
-  
+
   int[] getMenuLocation() {
     return new int[] {posX, posY+width/30+10};
   }

@@ -11,8 +11,9 @@ void setup() {
 
 void draw() {
   background(255);
-  tbx1.display();
+  tbx1.display(mouseX, mouseY);
 }
 
 void runInteraction(String objectName, String interactableName) {
+  
 }

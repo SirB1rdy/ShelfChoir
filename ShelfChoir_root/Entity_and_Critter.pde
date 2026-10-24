@@ -25,6 +25,7 @@ class Entity {
   }
 
   void display() {
+    fill(#0000FF);
     rect(posX, posY, sizeW, -sizeH); // -sizeH so floor is anchor point, is easier for placement
   }
 
@@ -32,6 +33,10 @@ class Entity {
     return new int[] {posX, posY};
   }
 }
+
+
+
+
 
 // Critter class
 class Critter extends Entity {
@@ -47,6 +52,8 @@ class Critter extends Entity {
     super.update(newX, newY);
   }
 
+
+
   // Critter class voice manager
   void setVoice(int index) {
     if (voices != null && index >= 0 && index < voices.length) {
@@ -60,7 +67,8 @@ class Critter extends Entity {
     if (voiceIndex < 0) return null;
     return voices[voiceIndex];
   }
-
+ 
+  // plays sound only if the sound file reference is real and if the sound isn't already playing. length of a sound bit: ~36 frames
   void speak() {
     SoundFile v = getVoice();
     if (v != null && !v.isPlaying()) {
@@ -68,4 +76,7 @@ class Critter extends Entity {
     }
   }
   // END Critter class voice manager
+
+
+
 }

@@ -10,7 +10,6 @@ Interactable[] items = {
 };
 
 Critter[] critters = new Critter[2];
-String[] names = {"Pat", "Mat"};
 
 
 void setup() {

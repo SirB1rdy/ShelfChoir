@@ -11,6 +11,7 @@ class InteractionHandler {
     for (int i = 0; i < critters.length; i++) {
       int[] itemLocation = hammer.getLocation();
       // checks for each corner of item's square hitbox to see if it's in the hitbox of the critter
+      // itemLocation[i] 0=originX, 1=originY, 2=width, 3=height
       if (critters[i].isColliding(itemLocation[0], itemLocation[1]) ||
         critters[i].isColliding(itemLocation[0] + itemLocation[2], itemLocation[1] + itemLocation[3]) ||
         critters[i].isColliding(itemLocation[0], itemLocation[1] + itemLocation[3]) ||

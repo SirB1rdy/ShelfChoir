@@ -11,7 +11,6 @@ Critter[] critters = new Critter[3];
 void setup() {
   size(1000, 750);
   loadAssets();
-<<<<<<< HEAD
   items[0] = new Interactable("Hammer");
   items[1] = new Interactable("Match");
   items[2] = new Interactable("Mic");
@@ -27,20 +26,6 @@ void setup() {
   critters[2] = new Critter("Mat", 3*width/5, 3*height/5 + 75, round(spriteSizes.get("Mat")[0] * critterScale), round(spriteSizes.get("Mat")[1] * critterScale), 0);
   critters[2].setSong(1); // Mat gets song_2
 
-
-=======
-  // cactus: no voice, no song, only reacts to the Match.
-  float cactusScale = 0.25;
-  critters[2] = new Critter("Cactus", 750, 380, round(spriteSizes.get("Cactus")[0] * cactusScale), round(spriteSizes.get("Cactus")[1] * cactusScale));
-  critters[2].setAllowedTools(new String[] {"Match"});
-  
-  // Pat & Mat
-    critters[0] = new Critter("Pat", 100, 380, spriteSizes.get("Pat")[0], spriteSizes.get("Pat")[1], 2);
-  critters[0].setSong(0); // Pat gets song_1
-  critters[1] = new Critter("Mat", 500, 380, spriteSizes.get("Mat")[0], spriteSizes.get("Mat")[1], 0);
-  critters[1].setSong(1); // Mat gets song_2
-  
->>>>>>> fd1c0765492ebe4703e0c996b7950b64e307c50b
   IH = new InteractionHandler(critters);
   tbx1 = new Toolbox(10, 10, false, items);
 }

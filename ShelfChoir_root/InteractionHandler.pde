@@ -16,23 +16,16 @@ class InteractionHandler {
         critters[i].isColliding(itemLocation[0], itemLocation[1] + itemLocation[3]) ||
         critters[i].isColliding(itemLocation[0] + itemLocation[2], itemLocation[1])) {
 
-        log(hammer.getInteraction() + " interacts with " + critters[i].name);
+
+        log("my ammar interacts with " + critters[i].name);
         if (critters[i].getInteracting() == null) {
           critters[i].setInteracting(hammer.getInteraction());
           critters[i].setStart(frameCount);
         }
-        
       }
       if (critters[i].getInteracting() == "Hammer") {
-          squishCritter(critters[i]);
+        squishCritter(critters[i]);
       }
-      
-      //if (critters[i].getInteracting() == "Hammer") {
-
-      //}
-      //if (critters[i].getEntityName() == "shelf" && critters[i].getInteracting() != null) {
-      //      breakShelf();
-      //    } else {
     }
   }
 
@@ -46,6 +39,9 @@ class InteractionHandler {
         }
       } else {
         Interactable item = items[selectedItem];
+        if (item.getInteraction() == "Hammer") {
+          break;
+        }
 
         int[] itemLocation = item.getLocation();
         // checks for each corner of item's square hitbox to see if it's in the hitbox of the critter
@@ -73,7 +69,7 @@ class InteractionHandler {
         } else if (critters[i].getInteracting() == "Taser") {
           taseCritter(critters[i]);
         } else {
-          log("Unknown interaction");
+          //log("Unknown interaction");
         }
       }
     }
@@ -94,13 +90,10 @@ class InteractionHandler {
       // hammer windup here
     } else if (frameCount - critter.getStart() > animLength) {
       if ((frameCount - critter.getStart() - animLength)/15.0 <= 1) {
-        log("Squish");
         critter.modifySize(0, round(2*spriteSizes.get(critter.getEntityName())[1]/3 * 1/15.0));
       } else if ((frameCount - critter.getStart() - animLength)/15.0 > 1 && (frameCount - critter.getStart() - animLength)/15.0 <= 2) {
-        log("Unsquish");
         critter.modifySize(0, -1*round(2*spriteSizes.get(critter.name)[1]/3 * 1/15.0));
       } else if ((frameCount - critter.getStart() - animLength)/15.0 > 2) {
-        log("Done");
         critter.resetInteracting();
         try {
           items[selectedItem].setDragged(false);

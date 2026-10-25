@@ -24,9 +24,26 @@ void mouseReleased() {
   for (int i = 0; i < items.length; i++) {
     if (items[i].getDragged()) {
       if (items[i].getInteraction() == "Hammer") {
-        log("Swing");
-        swingHammer = true;
-        IH.runInteraction(items[i]);
+        for (int j = 0; j < critters.length; j++) {
+          int[] itemLocation = items[i].getLocation();
+          // checks for each corner of item's square hitbox to see if it's in the hitbox of the critter
+          if (critters[j].isColliding(itemLocation[0], itemLocation[1]) ||
+            critters[j].isColliding(itemLocation[0] + itemLocation[2], itemLocation[1] + itemLocation[3]) ||
+            critters[j].isColliding(itemLocation[0], itemLocation[1] + itemLocation[3]) ||
+            critters[j].isColliding(itemLocation[0] + itemLocation[2], itemLocation[1])) {
+            log("Swing");
+            swingHammer = true;
+            IH.runInteraction(items[i]);
+          } else {
+            log("my ammar missed :(");
+            critters[j].resetInteracting();
+            items[i].setDragged(false);
+            items[i].setReleased(frameCount);
+            selectedItem = -1;
+            swingHammer = false;
+          }
+        }
+
       } else {
         items[i].setDragged(false);
         items[i].setReleased(frameCount);

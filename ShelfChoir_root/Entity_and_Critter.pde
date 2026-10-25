@@ -4,6 +4,8 @@ class Entity {
   int posY;
   int sizeW = 50;
   int sizeH = 50;
+  int trim = 10;
+
   String name = "";
   String interacting = null;
 
@@ -26,7 +28,6 @@ class Entity {
   }
 
   void display() {
-    int trim = 10;
     fill(#0000FF);
     rect(posX-(trim/2), posY-(trim/2), sizeW+trim, -sizeH); // -sizeH so floor is anchor point, is easier for placement
   }
@@ -47,14 +48,14 @@ class Entity {
   void resetInteracting() {
     interacting = null;
   }
-  
+
   String getEntityName() {
     return name;
   }
 
   // returns if certain point is within a square hitbox around the item
   boolean isColliding(int checkX, int checkY) {
-    if (checkX >= posX && checkX <= posX + sizeW && checkY <= posY && checkY >= posY - sizeH) {
+    if (checkX >= posX-(trim/2) && checkX <= posX + sizeW + trim && checkY <= posY && checkY >= posY-(trim/2) - sizeH) {
       return true;
     } else {
       return false;
@@ -85,9 +86,9 @@ class Critter extends Entity {
   // draws critter, falls back to placeholder if failed to load
   @Override
     void display() {
-      //super.display(); // uncomment to see hitbox
-      image(currentSprite, posX, posY - sizeH, sizeW, sizeH);
-    }
+    //super.display(); // uncomment to see hitbox
+    image(currentSprite, posX, posY - sizeH, sizeW, sizeH);
+  }
 
   @Override
     void update(int newX, int newY) {

@@ -26,7 +26,7 @@ class InteractionHandler {
       if (critters[i].getInteracting() == "Hammer") {
         squishCritter(critters[i]);
         return;
-      }
+      } 
     }
     hammer.setDragged(false);
     hammer.setReleased(frameCount);
@@ -44,9 +44,7 @@ class InteractionHandler {
         }
       } else {
         Interactable item = items[selectedItem];
-        if (item.getInteraction() == "Hammer") {
-          break;
-        }
+        
 
         int[] itemLocation = item.getLocation();
         // checks for each corner of item's square hitbox to see if it's in the hitbox of the critter

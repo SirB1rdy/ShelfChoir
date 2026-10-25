@@ -42,6 +42,8 @@ class InteractionHandler {
       if (selectedItem == -1) {
         if (critters[i].getInteracting() == "Match") {
           burnCritter(critters[i]);
+        } else if (critters[i].getInteracting() == "Mic") {
+          critterSing(critters[i]);
         }
       } else {
         Interactable item = items[selectedItem];
@@ -136,7 +138,6 @@ class InteractionHandler {
       float sway = sin(t * TWO_PI * 0.75) * 0.06 * fade; // gentle side to side tilt (about 3.5 degrees)
       critter.setSway(bob, sway);
     }
-    critter.resetInteracting();
   }
 
   // feather-critter interaction

@@ -7,7 +7,7 @@ Interactable[] items = {
   new Interactable("Match"),
   new Interactable("Mic"),
   new Interactable("Feather"),
-  new Interactable("")
+  new Interactable("Tazer")
 };
 
 Critter[] critters = new Critter[2];
@@ -28,12 +28,10 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  background(#34364F);
   updateCritters();
   tbx1.display(mouseX, mouseY);
-  if (selectedItem != -1) {
-    IH.runInteraction(items[selectedItem]);
-  }
+  IH.runInteraction(items);
 }
 
 void updateCritters() {

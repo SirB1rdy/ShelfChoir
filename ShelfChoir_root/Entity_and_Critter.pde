@@ -5,6 +5,7 @@ class Entity {
   int sizeW = 50;
   int sizeH = 50;
   String name = "";
+  String interacting = null;
 
   Entity() { // base constructor
     posX = width/2;
@@ -32,7 +33,20 @@ class Entity {
   int[] getLocation() {
     return new int[] {posX, posY-sizeH, sizeW, sizeH}; // returns posY-sizeH due to how the critter is currently being displayed
   }
-  
+
+  // methods to help with figuring out if an entity is interacting with an item
+  String getInteracting() {
+    return interacting;
+  }
+
+  void setInteracting(String newI) {
+    interacting = newI;
+  }
+
+  void resetInteracting() {
+    interacting = null;
+  }
+
   // returns if certain point is within a square hitbox around the item
   boolean isColliding(int checkX, int checkY) {
     if (checkX >= posX && checkX <= posX + sizeW && checkY <= posY && checkY >= posY - sizeH) {
@@ -51,6 +65,7 @@ class Entity {
 class Critter extends Entity {
   SoundFile[] voices = allVoices;
   int voiceIndex = -1;
+  int interactStart;
 
   Critter(String critterName, int critterX, int critterY, int critterW, int critterH, int critterVoice) { // full constructor
     super(critterName, critterX, critterY, critterW, critterH);
@@ -58,10 +73,22 @@ class Critter extends Entity {
   }
   @Override
     void update(int newX, int newY) {
-    super.update(newX, newY);
+    if (interacting == null) {
+      super.update(newX, newY);
+    } else if (interacting == "Match") {
+      log("Critter update");
+      posX += newX;
+      posY += newY;
+    }
   }
 
+  void setStart(int newS) {
+    interactStart = newS;
+  }
 
+  int getStart() {
+    return interactStart;
+  }
 
   // Critter class voice manager
   void setVoice(int index) {
@@ -76,7 +103,7 @@ class Critter extends Entity {
     if (voiceIndex < 0) return null;
     return voices[voiceIndex];
   }
- 
+
   // plays sound only if the sound file reference is real and if the sound isn't already playing. length of a sound bit: ~36 frames
   void speak() {
     SoundFile v = getVoice();
@@ -85,7 +112,4 @@ class Critter extends Entity {
     }
   }
   // END Critter class voice manager
-
-
-
 }

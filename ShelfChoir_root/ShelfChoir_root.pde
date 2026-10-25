@@ -7,7 +7,7 @@ Interactable[] items = {
   new Interactable("Match"),
   new Interactable("Mic"),
   new Interactable("Feather"),
-  new Interactable("Tazer")
+  new Interactable("Taser")
 };
 
 Critter[] critters = new Critter[2];

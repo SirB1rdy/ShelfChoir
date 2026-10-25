@@ -26,8 +26,9 @@ class Entity {
   }
 
   void display() {
+    int trim = 10;
     fill(#0000FF);
-    rect(posX, posY, sizeW, -sizeH); // -sizeH so floor is anchor point, is easier for placement
+    rect(posX-(trim/2), posY-(trim/2), sizeW+trim, -sizeH); // -sizeH so floor is anchor point, is easier for placement
   }
 
   int[] getLocation() {
@@ -59,18 +60,31 @@ class Entity {
 
 
 
-
-
 // Critter class
 class Critter extends Entity {
   SoundFile[] voices = allVoices;
   int voiceIndex = -1;
   int interactStart;
 
+  // sprites, looked up by critter name
+  PImage normalSprite;
+  PImage burnedSprite;
+  PImage currentSprite; // the drawn/selected sprite
+
   Critter(String critterName, int critterX, int critterY, int critterW, int critterH, int critterVoice) { // full constructor
     super(critterName, critterX, critterY, critterW, critterH);
     setVoice(critterVoice);
+    normalSprite = getSprite(critterName);
+    burnedSprite = getSprite("Burned_" + critterName);
+    currentSprite = normalSprite; // always start on normal sprite
   }
+  // draws critter, falls back to placeholder if failed to load
+  @Override
+    void display() {
+      //super.display(); // uncomment to see hitbox
+      image(currentSprite, posX, posY - sizeH, sizeW, sizeH);
+    }
+
   @Override
     void update(int newX, int newY) {
     if (interacting == null) {

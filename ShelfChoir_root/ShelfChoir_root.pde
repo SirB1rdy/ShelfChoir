@@ -34,6 +34,8 @@ void draw() {
   IH.runInteraction(items);
 }
 
+/// Custom Methods
+
 void updateCritters() {
   for (int i = 0; i < critters.length; i++) {
     //critters[i].update(200, 380); // update location

@@ -1,7 +1,10 @@
 import processing.sound.*;
+import java.util.Map;
 
 SoundFile[] allVoices; // global voices array
+
 HashMap<String, PImage> allSprites = new HashMap<String, PImage>(); // global sprites, look up by name
+HashMap<String, int[]> spriteSizes = new HashMap<String, int[]>(); // global to the default sizes of each sprite
 
 void loadAssets() {
   loadVoices();
@@ -56,6 +59,12 @@ void loadSprites() { // sprite loader
       allSprites.put(spriteNames[i], img);
       log("loaded sprite: " + path);
     }
+  }
+  // sprite size loader
+  String[] lines = loadStrings("sprites/size guide.txt");
+  for (int i = 0; i < lines.length - 2; i++) { 
+    int[] size = {int(splitTokens(lines[i], ". =,")[2]), int(splitTokens(lines[i], ". =,")[3])};
+    spriteSizes.put(splitTokens(lines[i], ". =,")[0], size);
   }
 }
 

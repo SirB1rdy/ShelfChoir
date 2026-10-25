@@ -25,8 +25,13 @@ class InteractionHandler {
       }
       if (critters[i].getInteracting() == "Hammer") {
         squishCritter(critters[i]);
+        return;
       }
     }
+    hammer.setDragged(false);
+    hammer.setReleased(frameCount);
+    selectedItem = -1;
+    swingHammer = false;
   }
 
   // method for all other interactions aside from hammer

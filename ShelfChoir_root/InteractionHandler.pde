@@ -148,7 +148,6 @@ class InteractionHandler {
     int animLength = 45; // placeholder value for the length of the jump windup animation
     critter.burn(); // change sprites to <"Burned_" + spriteName>
     // critter jumps up and down
-    log("" + (frameCount - critter.getStart())/60.0);
     if (frameCount - critter.getStart() == 0) {
       // jump windup animation here
     } else if (frameCount - critter.getStart() > animLength) {

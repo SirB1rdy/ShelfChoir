@@ -49,7 +49,6 @@ void draw() {
 
 void updateCritters() {
   for (int i = 0; i < critters.length; i++) {
-    //critters[i].update(0,0);
     critters[i].display();
     critters[i].chatter();
   }

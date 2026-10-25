@@ -6,7 +6,7 @@ class InteractionHandler {
     critters = cs;
   }
 
-
+  // method purely for running hammer interaction as this is the only one that happens on release
   void runInteraction(Interactable hammer) {
     for (int i = 0; i < critters.length; i++) {
       int[] itemLocation = hammer.getLocation();
@@ -36,6 +36,7 @@ class InteractionHandler {
     }
   }
 
+  // method for all other interactions aside from hammer
   void runInteraction(Interactable[] items) {
     for (int i = 0; i < critters.length; i++) {
       // if statement to make sure that if a critter started the burning interaction they will not pause after one stops using the match tool

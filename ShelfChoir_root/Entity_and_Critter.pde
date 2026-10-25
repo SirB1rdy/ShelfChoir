@@ -30,7 +30,16 @@ class Entity {
   }
 
   int[] getLocation() {
-    return new int[] {posX, posY, sizeW, sizeH};
+    return new int[] {posX, posY-sizeH, sizeW, sizeH}; // returns posY-sizeH due to how the critter is currently being displayed
+  }
+  
+  // returns if certain point is within a square hitbox around the item
+  boolean isColliding(int checkX, int checkY) {
+    if (checkX >= posX && checkX <= posX + sizeW && checkY <= posY && checkY >= posY - sizeH) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

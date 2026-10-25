@@ -47,7 +47,7 @@ class Entity {
   void resetInteracting() {
     interacting = null;
   }
-  
+
   String getEntityName() {
     return name;
   }
@@ -66,6 +66,7 @@ class Entity {
 
 // Critter class
 class Critter extends Entity {
+  ///get files for critters
   SoundFile[] voices = allVoices;
   int voiceIndex = -1;
   int interactStart;
@@ -74,6 +75,15 @@ class Critter extends Entity {
   PImage normalSprite;
   PImage burnedSprite;
   PImage currentSprite; // the drawn/selected sprite
+
+  // songs (one per critter) that play while the Mic is used on them
+  SoundFile[] songs = allSongs;
+  int songIndex = -1;
+  boolean singing = false;
+  ///
+
+  int drawOffsetY = 0;
+  float drawAngle = 0;
 
   Critter(String critterName, int critterX, int critterY, int critterW, int critterH, int critterVoice) { // full constructor
     super(critterName, critterX, critterY, critterW, critterH);
@@ -85,9 +95,14 @@ class Critter extends Entity {
   // draws critter, falls back to placeholder if failed to load
   @Override
     void display() {
-      super.display(); // uncomment to see hitbox
-      image(currentSprite, posX, posY - sizeH, sizeW, sizeH);
-    }
+    //super.display(); // uncomment to see hitbox
+    // draw around the bottom middle of the critter so any rotation pivots on its feet
+    pushMatrix();
+    translate(posX + sizeW/2, posY + drawOffsetY);
+    rotate(drawAngle);
+    image(currentSprite, -sizeW/2, -sizeH, sizeW, sizeH);
+    popMatrix();
+  }
 
   @Override
     void update(int newX, int newY) {
@@ -99,7 +114,15 @@ class Critter extends Entity {
       posY += newY;
     }
   }
-  
+
+  // Chatter method
+  void chatter() {
+    if (interacting == null && !singing && random(500) < 1) {
+      speak();
+      log("chatter " + name);
+    }
+  }
+
   // switches the critter to its burned sprite (stays burned)
   void burn() {
     if (burnedSprite != null) {
@@ -112,6 +135,12 @@ class Critter extends Entity {
       sizeW -= changeW;
       sizeH -= changeH;
     }
+  }
+
+  // set sway for animation
+  void setSway(int offsetY, float angle) {
+    drawOffsetY = offsetY;
+    drawAngle = angle;
   }
 
   void setStart(int newIS) {// newIS is the new start time of the interaction
@@ -144,4 +173,45 @@ class Critter extends Entity {
     }
   }
   // END Critter class voice manager
+
+  // Critter class song manager
+  void setSong(int index) {
+    if (songs != null && index >= 0 && index < songs.length) {
+      songIndex = index;
+    } else {
+      println("Critter " + name + ": song " + index + " doesn't exist");
+    }
+  }
+
+  SoundFile getSong() {
+    if (songIndex < 0) return null;
+    return songs[songIndex];
+  }
+
+  // length of the song in seconds, 0 if there is no song
+  float getSongDuration() {
+    SoundFile s = getSong();
+    if (s == null) return 0;
+    return s.duration();
+  }
+
+  void startSong() {
+    SoundFile s = getSong();
+    if (s != null) {
+      s.play();
+      singing = true;
+    }
+  }
+
+  boolean isSinging() {
+    return singing;
+  }
+
+  // ends the singing interaction and puts the sprite back in its normal pose
+  void stopSinging() {
+    singing = false;
+    setSway(0, 0);
+    resetInteracting();
+  }
+  // END Critter class song manager
 }

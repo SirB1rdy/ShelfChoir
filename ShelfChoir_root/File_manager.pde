@@ -2,7 +2,8 @@ import processing.sound.*;
 import java.util.Map;
 
 SoundFile[] allVoices; // global voices array
-PImage[] allSprites; // global sprites array
+
+HashMap<String, PImage> allSprites = new HashMap<String, PImage>(); // global sprites, look up by name
 HashMap<String, int[]> spriteSizes = new HashMap<String, int[]>(); // global to the default sizes of each sprite
 
 void loadAssets() {
@@ -14,8 +15,7 @@ void loadVoices() {
   String[] voiceFiles = { // append to add new sprites
     "sounds/voices/voice_01.mp3",
     "sounds/voices/voice_02.mp3",
-    "sounds/voices/voice_03.mp3",
-    "sounds/voices/voice_04.mp3"
+    "sounds/voices/voice_03.mp3"
   };
   allVoices = new SoundFile[voiceFiles.length];
   for (int i = 0; i < voiceFiles.length; i++) {
@@ -37,17 +37,27 @@ void loadVoices() {
 }
 
 void loadSprites() { // sprite loader
-  String[] spriteFiles = { // append to add new sprites
-    "sprites/1.png",
-    "sprites/2.png"
+  // append a name to add a new sprite. The name must match the file name in data/sprites/ (without .png)
+  String[] spriteNames = {
+    "Cactus",
+    "Guy",
+    "Mat",
+    "Pat",
+    "Shelf",
+    "Burned_Cactus",
+    "Burned_Guy",
+    "Burned_Mat",
+    "Burned_Pat"
   };
-  allSprites = new PImage[spriteFiles.length];
-  for (int i = 0; i < spriteFiles.length; i++) {
-    allSprites[i] = loadImage(spriteFiles[i]);
-    if (allSprites[i] == null) {
-      println("Missing sprite: " + spriteFiles[i]);
+
+  for (int i = 0; i < spriteNames.length; i++) {
+    String path = "sprites/" + spriteNames[i] + ".png";
+    PImage img = loadImage(path);
+    if (img == null) {
+      log("Missing sprite: " + path);
     } else {
-      println("loaded sprite: " + spriteFiles[i]);
+      allSprites.put(spriteNames[i], img);
+      log("loaded sprite: " + path);
     }
   }
   // sprite size loader
@@ -56,4 +66,13 @@ void loadSprites() { // sprite loader
     int[] size = {int(splitTokens(lines[i], ". =,")[2]), int(splitTokens(lines[i], ". =,")[3])};
     spriteSizes.put(splitTokens(lines[i], ". =,")[0], size);
   }
+}
+
+// returns the sprite with the given name, or null (with a log message) if it was never loaded
+PImage getSprite(String spriteName) {
+  PImage img = allSprites.get(spriteName);
+  if (img == null) {
+    log("No sprite named: " + spriteName);
+  }
+  return img;
 }

@@ -70,8 +70,8 @@ class InteractionHandler {
           critterSing(critters[i]);
         } else if (critters[i].getInteracting() == "Feather") {
           tickleCritter(critters[i]);
-        } else if (critters[i].getInteracting() == "Tazer") {
-          tazeCritter(critters[i]);
+        } else if (critters[i].getInteracting() == "Taser") {
+          taseCritter(critters[i]);
         } else {
           log("Unknown interaction");
         }
@@ -81,7 +81,7 @@ class InteractionHandler {
 
 
   // tazer-critter interaction
-  void tazeCritter(Critter critter) {
+  void taseCritter(Critter critter) {
     // zappy animation/lightning sprite around the critter
   }
 

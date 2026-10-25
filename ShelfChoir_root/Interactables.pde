@@ -1,8 +1,3 @@
-// collision
-// play sound
-// change sprites
-// animate
-
 // Interactable class
 class Interactable {
   int posX;

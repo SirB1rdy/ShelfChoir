@@ -7,12 +7,6 @@ class Toolbox {
   boolean opened = false;
 
   Interactable[] items;
-  
-  
-  // bare minimum constructor requires the item array
-  Toolbox(Interactable[] inI) {
-    items = inI;
-  }
 
   // dev constructor that allows changes to everything
   Toolbox(int inX, int inY, boolean inO, Interactable[] inI) {

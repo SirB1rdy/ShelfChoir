@@ -41,6 +41,8 @@ class InteractionHandler {
       if (selectedItem == -1) {
         if (critters[i].getInteracting() == "Match") {
           burnCritter(critters[i]);
+        } else if (critters[i].getInteracting() == "Mic") {
+          critterSing(critters[i]);
         }
       } else {
         Interactable item = items[selectedItem];

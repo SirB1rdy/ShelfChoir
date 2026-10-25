@@ -23,6 +23,7 @@ void setup() {
     } else {
       critters[i] = new Critter("Mat", 500, 380, spriteSizes.get("Mat")[0], spriteSizes.get("Mat")[1], 0);
     }
+    critters[i].setSong(i); // Pat gets song_1, Mat gets song_2
   }
   IH = new InteractionHandler(critters);
   tbx1 = new Toolbox(10, 10, false, items);
@@ -46,9 +47,9 @@ void draw() {
 
 void updateCritters() {
   for (int i = 0; i < critters.length; i++) {
-    //critters[i].update(200, 380); // update location
+    //critters[i].update(0,0);
     critters[i].display();
-    //critters[i].speak(); // code disabled
+    critters[i].chatter();
   }
 }
 

@@ -2,6 +2,7 @@ import processing.sound.*;
 import java.util.Map;
 
 SoundFile[] allVoices; // global voices array
+SoundFile[] allSongs; // global songs array
 
 HashMap<String, PImage> allSprites = new HashMap<String, PImage>(); // global sprites, look up by name
 HashMap<String, int[]> spriteSizes = new HashMap<String, int[]>(); // global to the default sizes of each sprite
@@ -9,6 +10,7 @@ HashMap<String, int[]> spriteSizes = new HashMap<String, int[]>(); // global to 
 void loadAssets() {
   loadVoices();
   loadSprites();
+  loadSongs();
 }
 
 void loadVoices() {
@@ -45,7 +47,7 @@ void loadSprites() { // sprite loader
     "Pat",
     "Shelf",
     "Burned_Cactus",
-    "Burned_Guy",
+    "Burned_Guy", // loaded and forgotten R.I.P
     "Burned_Mat",
     "Burned_Pat"
   };
@@ -75,4 +77,16 @@ PImage getSprite(String spriteName) {
     log("No sprite named: " + spriteName);
   }
   return img;
+}
+
+void loadSongs() {
+  String[] songFiles = { // append to add new songs
+    "sounds/effects/song_01.mp3",
+    "sounds/effects/song_02.mp3"
+  };
+  allSongs = new SoundFile[songFiles.length];
+  for (int i = 0; i < songFiles.length; i++) {
+    allSongs[i] = new SoundFile(this, songFiles[i]);
+    log("loaded song: " + songFiles[i]);
+  }
 }

@@ -118,9 +118,21 @@ class InteractionHandler {
   // mic-critter interactions
   void critterSing(Critter critter) {
     // critter sings never gonna give you up
+    if (!critter.isSinging()) {
+      critter.startSong(); // only starts once per interaction
+    }
 
-    critter.speak();
-    critter.resetInteracting();
+    float t = (frameCount - critter.getStart()) / 60.0; // seconds since singing started
+    float total = critter.getSongDuration(); // song length in seconds
+
+    if (t >= total) {
+      critter.stopSinging();
+    } else { // sing animation
+      float fade = constrain(min(t, total - t) / 0.3, 0, 1); // eases the motion in/out over 0.3s so it doesn't snap
+      int bob = -round(abs(sin(t * PI * 1.5)) * critter.sizeH * 0.03 * fade); // small hops, 1.5 per second, 3% of the sprite height
+      float sway = sin(t * TWO_PI * 0.75) * 0.06 * fade; // gentle side to side tilt (about 3.5 degrees)
+      critter.setSway(bob, sway);
+    }
   }
 
   // feather-critter interaction
@@ -131,6 +143,7 @@ class InteractionHandler {
   // match-critter interaction
   void burnCritter(Critter critter) {
     int animLength = 45; // placeholder value for the length of the jump windup animation
+    critter.burn(); // change sprites to <"Burned_" + spriteName>
     // critter jumps up and down
     log("" + (frameCount - critter.getStart())/60.0);
     if (frameCount - critter.getStart() == 0) {

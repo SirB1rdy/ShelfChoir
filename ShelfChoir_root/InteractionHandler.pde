@@ -136,7 +136,6 @@ class InteractionHandler {
       float sway = sin(t * TWO_PI * 0.75) * 0.06 * fade; // gentle side to side tilt (about 3.5 degrees)
       critter.setSway(bob, sway);
     }
-    //remove
   }
 
   // feather-critter interaction

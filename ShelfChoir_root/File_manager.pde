@@ -1,7 +1,9 @@
 import processing.sound.*;
+import java.util.Map;
 
 SoundFile[] allVoices; // global voices array
 PImage[] allSprites; // global sprites array
+HashMap<String, int[]> spriteSizes = new HashMap<String, int[]>(); // global to the default sizes of each sprite
 
 void loadAssets() {
   loadVoices();
@@ -22,11 +24,12 @@ void loadVoices() {
     boolean fileFound = true;
     try {
       log("" + allVoices[i].frames());
-    } catch (NullPointerException e) {
+    }
+    catch (NullPointerException e) {
       log("Missing voice: " + voiceFiles[i]);
       fileFound = false;
-    } 
-    
+    }
+
     if (fileFound) {
       log("loaded voice: " + voiceFiles[i]);
     }
@@ -46,5 +49,11 @@ void loadSprites() { // sprite loader
     } else {
       println("loaded sprite: " + spriteFiles[i]);
     }
+  }
+  // sprite size loader
+  String[] lines = loadStrings("sprites/size guide.txt");
+  for (int i = 0; i < lines.length - 2; i++) { 
+    int[] size = {int(splitTokens(lines[i], ". =,")[2]), int(splitTokens(lines[i], ". =,")[3])};
+    spriteSizes.put(splitTokens(lines[i], ". =,")[0], size);
   }
 }

@@ -23,9 +23,15 @@ void mousePressed() {
 void mouseReleased() {
   for (int i = 0; i < items.length; i++) {
     if (items[i].getDragged()) {
-      items[i].setDragged(false);
-      items[i].setReleased(frameCount);
-      selectedItem = -1;
+      if (items[i].getInteraction() == "Hammer") {
+        log("Swing");
+        swingHammer = true;
+        IH.runInteraction(items[i]);
+      } else {
+        items[i].setDragged(false);
+        items[i].setReleased(frameCount);
+        selectedItem = -1;
+      }
     }
   }
 }

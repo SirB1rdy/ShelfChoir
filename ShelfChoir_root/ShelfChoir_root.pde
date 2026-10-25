@@ -1,4 +1,5 @@
 int selectedItem = -1;
+boolean swingHammer = false;
 
 InteractionHandler IH;
 Toolbox tbx1;
@@ -18,9 +19,9 @@ void setup() {
   loadAssets();
   for (int i = 0; i < critters.length; i++) {
     if (i%2 == 0) {
-      critters[i] = new Critter("Pat", 200, 380, 30, 35, 2);
+      critters[i] = new Critter("Pat", 100, 380, spriteSizes.get("Pat")[0], spriteSizes.get("Pat")[1], 2);
     } else {
-      critters[i] = new Critter("Mat", 300, 380, 25, 45, 0);
+      critters[i] = new Critter("Mat", 500, 380, spriteSizes.get("Mat")[0], spriteSizes.get("Mat")[1], 0);
     }
   }
   IH = new InteractionHandler(critters);
@@ -32,6 +33,13 @@ void draw() {
   updateCritters();
   tbx1.display(mouseX, mouseY);
   IH.runInteraction(items);
+  if (swingHammer) {
+    for (int i = 0; i < items.length; i++) {
+      if (items[i].getInteraction() == "Hammer") {
+        IH.runInteraction(items[i]);
+      }
+    }
+  }
 }
 
 void updateCritters() {

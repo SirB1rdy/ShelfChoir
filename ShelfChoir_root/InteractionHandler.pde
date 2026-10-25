@@ -7,13 +7,40 @@ class InteractionHandler {
   }
 
 
+  void runInteraction(Interactable hammer) {
+    for (int i = 0; i < critters.length; i++) {
+      int[] itemLocation = hammer.getLocation();
+      // checks for each corner of item's square hitbox to see if it's in the hitbox of the critter
+      if (critters[i].isColliding(itemLocation[0], itemLocation[1]) ||
+        critters[i].isColliding(itemLocation[0] + itemLocation[2], itemLocation[1] + itemLocation[3]) ||
+        critters[i].isColliding(itemLocation[0], itemLocation[1] + itemLocation[3]) ||
+        critters[i].isColliding(itemLocation[0] + itemLocation[2], itemLocation[1])) {
 
+        log(hammer.getInteraction() + " interacts with " + critters[i].name);
+        if (critters[i].getInteracting() == null) {
+          critters[i].setInteracting(hammer.getInteraction());
+          critters[i].setStart(frameCount);
+        }
+        
+      }
+      if (critters[i].getInteracting() == "Hammer") {
+          squishCritter(critters[i]);
+      }
+      
+      //if (critters[i].getInteracting() == "Hammer") {
+
+      //}
+      //if (critters[i].getEntityName() == "shelf" && critters[i].getInteracting() != null) {
+      //      breakShelf();
+      //    } else {
+    }
+  }
 
   void runInteraction(Interactable[] items) {
     for (int i = 0; i < critters.length; i++) {
       // if statement to make sure that if a critter started the burning interaction they will not pause after one stops using the match tool
       if (selectedItem == -1) {
-        if (critters[i].getInteracting() == "Match" && critters[i].getInteracting() != null) {
+        if (critters[i].getInteracting() == "Match") {
           burnCritter(critters[i]);
         }
       } else {
@@ -27,30 +54,25 @@ class InteractionHandler {
           critters[i].isColliding(itemLocation[0] + itemLocation[2], itemLocation[1])) {
 
           log(item.getInteraction() + " interacts with " + critters[i].name);
-          if (critters[i].getInteracting() == null) {
+          if (critters[i].getInteracting() == null && item.getInteraction() != "Hammer") {
             critters[i].setInteracting(item.getInteraction());
             critters[i].setStart(frameCount);
           }
         }
 
-        if (critters[i].name == "shelf" && critters[i].getInteracting() != null) {
-          breakShelf();
-        } else {
 
-          // if/else if statements instead of a switch because apparently switch cases don't like full strings smh my head
-          if (critters[i].getInteracting() == "Hammer" && critters[i].getInteracting() != null) {
-            squishCritter(critters[i]);
-          } else if (critters[i].getInteracting() == "Match" && critters[i].getInteracting() != null) {
-            burnCritter(critters[i]);
-          } else if (critters[i].getInteracting() == "Mic" && critters[i].getInteracting() != null) {
-            critterSing(critters[i]);
-          } else if (critters[i].getInteracting() == "Feather" && critters[i].getInteracting() != null) {
-            tickleCritter(critters[i]);
-          } else if (critters[i].getInteracting() == "Tazer" && critters[i].getInteracting() != null) {
-            tazeCritter(critters[i]);
-          } else {
-            log("Unknown interaction");
-          }
+
+        // if/else if statements instead of a switch because apparently switch cases don't like full strings smh my head
+        if (critters[i].getInteracting() == "Match") {
+          burnCritter(critters[i]);
+        } else if (critters[i].getInteracting() == "Mic") {
+          critterSing(critters[i]);
+        } else if (critters[i].getInteracting() == "Feather") {
+          tickleCritter(critters[i]);
+        } else if (critters[i].getInteracting() == "Tazer") {
+          tazeCritter(critters[i]);
+        } else {
+          log("Unknown interaction");
         }
       }
     }
@@ -65,7 +87,31 @@ class InteractionHandler {
   // --- hammer interactions ---
   // hammer-critter
   void squishCritter(Critter critter) {
+    int animLength = 15; // placeholder value for the length of the jump windup animation
     // height of the sprite first decreases to a third then goes back up to original
+    if (frameCount - critter.getStart() == 0) {
+      // hammer windup here
+    } else if (frameCount - critter.getStart() > animLength) {
+      if ((frameCount - critter.getStart() - animLength)/15.0 <= 1) {
+        log("Squish");
+        critter.modifySize(0, round(2*spriteSizes.get(critter.getEntityName())[1]/3 * 1/15.0));
+      } else if ((frameCount - critter.getStart() - animLength)/15.0 > 1 && (frameCount - critter.getStart() - animLength)/15.0 <= 2) {
+        log("Unsquish");
+        critter.modifySize(0, -1*round(2*spriteSizes.get(critter.name)[1]/3 * 1/15.0));
+      } else if ((frameCount - critter.getStart() - animLength)/15.0 > 2) {
+        log("Done");
+        critter.resetInteracting();
+        try {
+          items[selectedItem].setDragged(false);
+          items[selectedItem].setReleased(frameCount);
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+          log("Insallah Exception " + e + ", as it was written");
+        }
+        selectedItem = -1;
+        swingHammer = false;
+      }
+    }
   }
 
   // hammer-shelf
@@ -87,19 +133,15 @@ class InteractionHandler {
 
   // match-critter interaction
   void burnCritter(Critter critter) {
-    log("Burn start");
     int animLength = 45; // placeholder value for the length of the jump windup animation
     // critter jumps up and down
     log("" + (frameCount - critter.getStart())/60.0);
     if (frameCount - critter.getStart() == 0) {
       // jump windup animation here
-      log("Windup");
     } else if (frameCount - critter.getStart() > animLength) {
       if ((frameCount - critter.getStart() - animLength)/60.0 <= 1) {
-        log("Up");
         critter.update(0, -1*round(height/3 * 1/60.0));
       } else if ((frameCount - critter.getStart() - animLength)/60.0 > 1 && (frameCount - critter.getStart() - animLength)/60.0 <= 2) {
-        log("Down");
         critter.update(0, round(height/3 * 1/60.0));
       } else if ((frameCount - critter.getStart() - animLength)/60.0 > 2) {
         critter.resetInteracting();

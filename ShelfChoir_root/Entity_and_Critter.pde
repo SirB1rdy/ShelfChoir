@@ -46,6 +46,10 @@ class Entity {
   void resetInteracting() {
     interacting = null;
   }
+  
+  String getEntityName() {
+    return name;
+  }
 
   // returns if certain point is within a square hitbox around the item
   boolean isColliding(int checkX, int checkY) {
@@ -82,8 +86,15 @@ class Critter extends Entity {
     }
   }
 
-  void setStart(int newS) {
-    interactStart = newS;
+  void modifySize(int changeW, int changeH) {
+    if (interacting == "Hammer") {
+      sizeW -= changeW;
+      sizeH -= changeH;
+    }
+  }
+
+  void setStart(int newIS) {// newIS is the new start time of the interaction
+    interactStart = newIS;
   }
 
   int getStart() {

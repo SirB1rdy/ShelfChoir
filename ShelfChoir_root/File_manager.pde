@@ -12,8 +12,7 @@ void loadVoices() {
   String[] voiceFiles = { // append to add new sprites
     "sounds/voices/voice_01.mp3",
     "sounds/voices/voice_02.mp3",
-    "sounds/voices/voice_03.mp3",
-    "sounds/voices/voice_04.mp3"
+    "sounds/voices/voice_03.mp3"
   };
   allVoices = new SoundFile[voiceFiles.length];
   for (int i = 0; i < voiceFiles.length; i++) {
@@ -35,8 +34,15 @@ void loadVoices() {
 
 void loadSprites() { // sprite loader
   String[] spriteFiles = { // append to add new sprites
-    "sprites/1.png",
-    "sprites/2.png"
+    "sprites/Shelf.png",
+    "sprites/Pat.png",
+    "sprites/Mat.png",
+    "sprites/Guy.png",
+    "sprites/Cactus.png",
+    "sprites/Burned_Pat.png",
+    "sprites/Burned_Mat.png",
+    "sprites/Burned_Guy.png",
+    "sprites/Burned_Cactus.png"
   };
   allSprites = new PImage[spriteFiles.length];
   for (int i = 0; i < spriteFiles.length; i++) {

@@ -85,7 +85,7 @@ class Critter extends Entity {
   // draws critter, falls back to placeholder if failed to load
   @Override
     void display() {
-      //super.display(); // uncomment to see hitbox
+      super.display(); // uncomment to see hitbox
       image(currentSprite, posX, posY - sizeH, sizeW, sizeH);
     }
 
@@ -97,6 +97,13 @@ class Critter extends Entity {
       log("Critter update");
       posX += newX;
       posY += newY;
+    }
+  }
+  
+  // switches the critter to its burned sprite (stays burned)
+  void burn() {
+    if (burnedSprite != null) {
+      currentSprite = burnedSprite;
     }
   }
 

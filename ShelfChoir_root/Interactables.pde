@@ -5,8 +5,6 @@
 
 // Interactable class
 class Interactable {
-  String name = "";
-
   int posX;
   int posY;
 
@@ -20,7 +18,7 @@ class Interactable {
 
 
   Interactable (String interactableName) {
-    name = interactableName;
+    interaction = interactableName;
   }
 
   void update(int newX, int newY) {
@@ -44,7 +42,7 @@ class Interactable {
     fill(#FF0000);
     textAlign(CENTER, TOP);
     textSize(12);
-    text(name, posX + sizeW, posY - 15); // position it top right of box
+    text(interaction, posX + sizeW, posY - 15); // position it top right of box
   }
 
   void display() {
@@ -53,7 +51,9 @@ class Interactable {
     debugText(); // render text with interactable object's name
   }
 
-
+  String getInteraction() {
+    return interaction;
+  }
 
   void setDragged(boolean newD) {
     dragged = newD;

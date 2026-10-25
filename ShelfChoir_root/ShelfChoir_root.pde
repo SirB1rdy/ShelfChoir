@@ -1,12 +1,13 @@
 int selectedItem = -1;
 
+InteractionHandler IH;
 Toolbox tbx1;
 Interactable[] items = {
   new Interactable("Hammer"),
   new Interactable("Match"),
   new Interactable("Mic"),
   new Interactable("Feather"),
-  new Interactable("")
+  new Interactable("Tazer")
 };
 
 Critter[] critters = new Critter[2];
@@ -19,16 +20,18 @@ void setup() {
     if (i%2 == 0) {
       critters[i] = new Critter("Pat", 200, 380, 30, 35, 2);
     } else {
-      critters[i] = new Critter("Mat", 250, 380, 25, 45, 0);
+      critters[i] = new Critter("Mat", 300, 380, 25, 45, 0);
     }
   }
+  IH = new InteractionHandler(critters);
   tbx1 = new Toolbox(10, 10, false, items);
 }
 
 void draw() {
-  background(255);
+  background(#34364F);
   updateCritters();
   tbx1.display(mouseX, mouseY);
+  IH.runInteraction(items);
 }
 
 void updateCritters() {
@@ -42,13 +45,4 @@ void updateCritters() {
 // log function for clear debug printing
 void log(String toLog) {
   println("[" + frameCount/60 + "s since start | Frame " + frameCount +"] " + toLog);
-}
-
-
-void runInteraction(String objectName, String interactableName) {
-  for (int i = 0; i < items.length; i++) {
-    for (int j = 0; j < critters.length; i++) {}
-      
-    
-  }
 }

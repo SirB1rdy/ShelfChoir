@@ -8,8 +8,12 @@ class Interactable {
   int posX;
   int posY;
 
-  int sizeW = 25;
-  int sizeH = 25;
+  int sizeW = 50;
+  int sizeH = 50;
+
+  int rotateAmt = 0;
+
+  PImage sprite;
 
   // field which indicates when item was let go from drag for smoother lerp
   int timeReleased = 0;
@@ -19,6 +23,7 @@ class Interactable {
 
   Interactable (String interactableName) {
     interaction = interactableName;
+    sprite = getSprite(interaction);
   }
 
   void update(int newX, int newY) {
@@ -42,13 +47,28 @@ class Interactable {
     fill(#FF0000);
     textAlign(CENTER, TOP);
     textSize(12);
-    text(interaction, posX + sizeW, posY - 15); // position it top right of box
+    text(interaction, + sizeW/2, -sizeH/2 - 15); // position it top right of box
   }
 
   void display() {
     fill (#FF0000);
-    rect(posX, posY, sizeW, sizeH);
-    debugText(); // render text with interactable object's name
+    pushMatrix();
+    translate(posX+sizeW/2, posY+sizeH/2);
+
+    rotate(rotateAmt);
+    //rect(-sizeW/2, -sizeH/2, sizeW, sizeH);
+    image(sprite, -sizeW/2, -sizeH/2, sizeW, sizeH);
+    //debugText(); // render text with interactable object's name
+    rotate(-rotateAmt);
+    popMatrix();
+  }
+
+  void rotateItem(int amt) {
+    rotateAmt += amt;
+  }
+  
+  void resetRotation() {
+    rotateAmt = 0;
   }
 
   String getInteraction() {

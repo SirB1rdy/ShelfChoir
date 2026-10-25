@@ -48,7 +48,10 @@ void loadSprites() { // sprite loader
     "Burned_Cactus",
     "Burned_Guy", // loaded and forgotten R.I.P
     "Burned_Mat",
-    "Burned_Pat"
+    "Burned_Pat",
+    "Hammer",
+    "Mic",
+    "Match"
   };
 
   for (int i = 0; i < spriteNames.length; i++) {

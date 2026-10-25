@@ -69,39 +69,39 @@ class InteractionHandler {
           burnCritter(critters[i]);
         } else if (critters[i].getInteracting() == "Mic") {
           critterSing(critters[i]);
-        } else if (critters[i].getInteracting() == "Feather") {
-          tickleCritter(critters[i]);
-        } else if (critters[i].getInteracting() == "Taser") {
-          taseCritter(critters[i]);
-        } else {
-          //log("Unknown interaction");
         }
       }
     }
   }
 
 
-  // tazer-critter interaction
-  void taseCritter(Critter critter) {
-    // zappy animation/lightning sprite around the critter
-  }
+
 
   // --- hammer interactions ---
   // hammer-critter
   void squishCritter(Critter critter) {
-    int animLength = 15; // placeholder value for the length of the jump windup animation
+    float animLength = 15.0; // placeholder value for the length of the jump windup animation
     // height of the sprite first decreases to a third then goes back up to original
-    if (frameCount - critter.getStart() == 0) {
-      // hammer windup here
+    if (frameCount - critter.getStart() <= animLength) {
+      // jump windup animation here
+      log("fuck " + (frameCount - critter.getStart())/animLength);
+      if ((frameCount - critter.getStart())/animLength <= 0.333) {
+        log("there");
+        items[selectedItem].rotateItem(round(-90 * 1/animLength));
+      } else if ((frameCount - critter.getStart())/animLength > 0.333 && (frameCount - critter.getStart())/animLength <= 1) {
+        log("back");
+        items[selectedItem].rotateItem(round(90 * 1/animLength));
+      }
     } else if (frameCount - critter.getStart() > animLength) {
       if ((frameCount - critter.getStart() - animLength)/15.0 <= 1) {
-        critter.modifySize(0, round(2*spriteSizes.get(critter.getEntityName())[1]/3 * 1/15.0));
+        critter.modifySize(0, round(spriteSizes.get(critter.getEntityName())[1]/2 * 1/15.0));
       } else if ((frameCount - critter.getStart() - animLength)/15.0 > 1 && (frameCount - critter.getStart() - animLength)/15.0 <= 2) {
-        critter.modifySize(0, -1*round(2*spriteSizes.get(critter.name)[1]/3 * 1/15.0));
+        critter.modifySize(0, -1*round(spriteSizes.get(critter.name)[1]/2 * 1/15.0));
       } else if ((frameCount - critter.getStart() - animLength)/15.0 > 2) {
         critter.resetInteracting();
         try {
           items[selectedItem].setDragged(false);
+          items[selectedItem].resetRotation();
           items[selectedItem].setReleased(frameCount);
         }
         catch (ArrayIndexOutOfBoundsException e) {
@@ -111,10 +111,6 @@ class InteractionHandler {
         swingHammer = false;
       }
     }
-  }
-
-  // hammer-shelf
-  void breakShelf() {
   }
 
   // mic-critter interactions
@@ -137,19 +133,21 @@ class InteractionHandler {
     }
   }
 
-  // feather-critter interaction
-  void tickleCritter(Critter critter) {
-    // quick up and down bobbing animation and changed facial expression
-  }
 
   // match-critter interaction
   void burnCritter(Critter critter) {
-    int animLength = 45; // placeholder value for the length of the jump windup animation
+    float animLength = 45.0; // placeholder value for the length of the jump windup animation
     critter.burn(); // change sprites to <"Burned_" + spriteName>
     // critter jumps up and down
     log("" + (frameCount - critter.getStart())/60.0);
-    if (frameCount - critter.getStart() == 0) {
+    
+    if (frameCount - critter.getStart() <= animLength) {
       // jump windup animation here
+      if ((frameCount - critter.getStart())/animLength <= 0.5) {
+        critter.modifySize(0, round(spriteSizes.get(critter.getEntityName())[1]/3 * 1/animLength));
+      } else if ((frameCount - critter.getStart())/animLength > 0.5 && (float) (frameCount - critter.getStart())/animLength <= 1) {
+        critter.modifySize(0, -1*round(spriteSizes.get(critter.getEntityName())[1]/3 * 1/animLength));
+      }
     } else if (frameCount - critter.getStart() > animLength) {
       if ((frameCount - critter.getStart() - animLength)/60.0 <= 1) {
         critter.update(0, -1*round(height/3 * 1/60.0));

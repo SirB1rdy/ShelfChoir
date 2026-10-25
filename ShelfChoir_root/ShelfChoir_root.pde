@@ -3,13 +3,7 @@ boolean swingHammer = false;
 
 InteractionHandler IH;
 Toolbox tbx1;
-Interactable[] items = {
-  new Interactable("Hammer"),
-  new Interactable("Match"),
-  new Interactable("Mic"),
-  new Interactable("Feather"),
-  new Interactable("Taser")
-};
+Interactable[] items = new Interactable[3];
 
 Critter[] critters = new Critter[3];
 
@@ -17,22 +11,30 @@ Critter[] critters = new Critter[3];
 void setup() {
   size(1000, 750);
   loadAssets();
-    critters[0] = new Critter("Pat", 100, 380, spriteSizes.get("Pat")[0], spriteSizes.get("Pat")[1], 2);
-  critters[0].setSong(0); // Pat gets song_1
-  critters[1] = new Critter("Mat", 500, 380, spriteSizes.get("Mat")[0], spriteSizes.get("Mat")[1], 0);
-  critters[1].setSong(1); // Mat gets song_2
- 
+  items[0] = new Interactable("Hammer");
+  items[1] = new Interactable("Match");
+  items[2] = new Interactable("Mic");
+
   // cactus: no voice, no song, only reacts to the Match.
-  float cactusScale = 0.25;
-  critters[2] = new Critter("Cactus", 750, 380, round(spriteSizes.get("Cactus")[0] * cactusScale), round(spriteSizes.get("Cactus")[1] * cactusScale));
-  critters[2].setAllowedTools(new String[] {"Match"});
-  
+  float cactusScale = 0.75;
+  critters[0] = new Critter("Cactus", width/5, 3*height/5 + 67, round(spriteSizes.get("Cactus")[0] * cactusScale), round(spriteSizes.get("Cactus")[1] * cactusScale));
+  critters[0].setAllowedTools(new String[] {"Match"});
+
+  float critterScale = 0.6;
+  critters[1] = new Critter("Pat", 2*width/5, 3*height/5 + 85, round(spriteSizes.get("Pat")[0] * critterScale), round(spriteSizes.get("Pat")[1] * critterScale), 2);
+  critters[1].setSong(0); // Pat gets song_1
+  critters[2] = new Critter("Mat", 3*width/5, 3*height/5 + 75, round(spriteSizes.get("Mat")[0] * critterScale), round(spriteSizes.get("Mat")[1] * critterScale), 0);
+  critters[2].setSong(1); // Mat gets song_2
+
+
   IH = new InteractionHandler(critters);
   tbx1 = new Toolbox(10, 10, false, items);
 }
 
 void draw() {
   background(#34364F);
+  fill(0);
+  image(getSprite("Shelf"), width/18, 3*height/5, 8*width/9, spriteSizes.get("Shelf")[1]*0.65);
   updateCritters();
   tbx1.display(mouseX, mouseY);
   IH.runInteraction(items);

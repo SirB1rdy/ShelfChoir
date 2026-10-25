@@ -141,7 +141,7 @@ class Critter extends Entity {
   }
 
   void modifySize(int changeW, int changeH) {
-    if (interacting == "Hammer") {
+    if (interacting == "Hammer" || interacting == "Match") {
       sizeW -= changeW;
       sizeH -= changeH;
     }

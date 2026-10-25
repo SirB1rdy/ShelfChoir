@@ -3,5 +3,9 @@ Guy.png = 169, 177
 Mat.png = 180, 368
 Pat.png = 261, 222
 Shelf.png = 1614, 385
+Burned_Cactus.png = 644, 596
+Burned_Guy.png = 169, 177
+Burned_Mat.png = 180, 368
+Burned_Pat.png = 261, 222
 
 // full sprite size, keep in mind that content might be a little bit smaller, when using coordinates for placing an offset might be needed.

@@ -119,7 +119,6 @@ class Critter extends Entity {
     if (interacting == null) {
       super.update(newX, newY);
     } else if (interacting == "Match") {
-      log("Critter update");
       posX += newX;
       posY += newY;
     }

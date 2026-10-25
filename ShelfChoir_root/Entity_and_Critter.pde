@@ -83,6 +83,9 @@ class Critter extends Entity {
   boolean singing = false;
   ///
 
+  boolean hasVoice = true; // false for voiceless critters (the cactus), they never chatter
+  String[] allowedTools = null; // null = reacts to every tool, otherwise only to the tools listed here
+
   int drawOffsetY = 0;
   float drawAngle = 0;
 
@@ -93,6 +96,12 @@ class Critter extends Entity {
     burnedSprite = getSprite("Burned_" + critterName);
     currentSprite = normalSprite; // always start on normal sprite
   }
+
+  // voiceless constructor (cactus)
+  Critter(String critterName, int critterX, int critterY, int critterW, int critterH) {
+    this(critterName, critterX, critterY, critterW, critterH, -1);
+  }
+
   // draws critter, falls back to placeholder if failed to load
   @Override
     void display() {
@@ -118,7 +127,7 @@ class Critter extends Entity {
 
   // Chatter method
   void chatter() {
-    if (interacting == null && !singing && random(500) < 1) {
+    if (hasVoice && interacting == null && !singing && random(500) < 1) {
       speak();
       log("chatter " + name);
     }
@@ -144,6 +153,22 @@ class Critter extends Entity {
     drawAngle = angle;
   }
 
+  /// Which tools can I use-inator
+  // limits which tools this critter reacts to, e.g. setAllowedTools(new String[] {"Match"})
+  void setAllowedTools(String[] tools) {
+    allowedTools = tools;
+  }
+
+  // true if this critter reacts to the given tool
+  boolean canInteractWith(String tool) {
+    if (allowedTools == null) return true;
+    for (int i = 0; i < allowedTools.length; i++) {
+      if (allowedTools[i].equals(tool)) return true;
+    }
+    return false;
+  }
+  ///
+
   void setStart(int newIS) {// newIS is the new start time of the interaction
     interactStart = newIS;
   }
@@ -154,6 +179,11 @@ class Critter extends Entity {
 
   // Critter class voice manager
   void setVoice(int index) {
+    if (index < 0) { // -1 means "no voice", not an error
+      voiceIndex = -1;
+      hasVoice = false;
+      return;
+    }
     if (voices != null && index >= 0 && index < voices.length) {
       voiceIndex = index;
     } else {

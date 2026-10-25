@@ -39,7 +39,6 @@ void loadVoices() {
 }
 
 void loadSprites() { // sprite loader
-  // append a name to add a new sprite. The name must match the file name in data/sprites/ (without .png)
   String[] spriteNames = {
     "Cactus",
     "Guy",

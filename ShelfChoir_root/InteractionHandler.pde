@@ -18,7 +18,7 @@ class InteractionHandler {
 
 
         log("my ammar interacts with " + critters[i].name);
-        if (critters[i].getInteracting() == null) {
+        if (critters[i].getInteracting() == null && critters[i].canInteractWith(hammer.getInteraction())) {
           critters[i].setInteracting(hammer.getInteraction());
           critters[i].setStart(frameCount);
         }
@@ -26,7 +26,7 @@ class InteractionHandler {
       if (critters[i].getInteracting() == "Hammer") {
         squishCritter(critters[i]);
         return;
-      } 
+      }
     }
     hammer.setDragged(false);
     hammer.setReleased(frameCount);
@@ -46,7 +46,7 @@ class InteractionHandler {
         }
       } else {
         Interactable item = items[selectedItem];
-        
+
 
         int[] itemLocation = item.getLocation();
         // checks for each corner of item's square hitbox to see if it's in the hitbox of the critter

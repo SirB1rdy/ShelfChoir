@@ -5,7 +5,11 @@ void mouseClicked() {
 // drags only the item which is currently selected
 void mouseDragged() {
   if (selectedItem != -1) {
-    items[selectedItem].update(mouseX, mouseY);
+    if (items[selectedItem].getInteraction() == "Hammer" && swingHammer) {
+      return;
+    } else {
+      items[selectedItem].update(mouseX, mouseY);
+    }
   }
 }
 

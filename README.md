@@ -1,8 +1,6 @@
 # Shelf Choir
 
-> *Why did we torture ourselves like this Fèlix? WHY?*
-> *Because it's fun Mika, because it's fun.*
-> *You have a really twisted definition of fun.*
+> Why did we torture ourselves like this Fèlix? WHY? <br> Because it's fun Mika, because it's fun. <br> You have a really twisted definition of fun
 
 **Shelf Choir** is a small interactive toy built in [Processing](https://processing.org/) for a intro to programming university assignment. It recreates a composition we found in a IKEA showroom: two little **DVÄGTALL** figures and a green **ÄRTBUSKE** cactus vase, sitting on a red **LACK** shelf.
 
